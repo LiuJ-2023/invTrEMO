@@ -5,9 +5,8 @@ class DTLZ1():
         self.dim = n_var
         self.obj_num = obj_num
         self.standard_bounds = np.array([ np.zeros(n_var), np.ones(n_var) ])
-        self.norm_for_hv = np.array([np.zeros(obj_num),1000*np.ones(obj_num)])
-        self.delta2 = delta2
         self.delta1 = delta1
+        self.delta2 = delta2
         self.pareto_f = self.cal_pareto_f()
     
     def __call__(self, x):
@@ -65,7 +64,6 @@ class DTLZ2():
         self.dim = n_var
         self.obj_num = obj_num
         self.standard_bounds = np.array([ np.zeros(n_var), np.ones(n_var) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
         self.delta1 = delta1
         self.delta2 = delta2
         self.pareto_f = self.cal_pareto_f()
@@ -126,7 +124,6 @@ class DTLZ3():
         self.dim = n_var
         self.obj_num = obj_num
         self.standard_bounds = np.array([ np.zeros(n_var), np.ones(n_var) ])
-        self.norm_for_hv = np.array([[0,0],[2000,2000]])
         self.delta1 = delta1
         self.delta2 = delta2
         self.pareto_f = self.cal_pareto_f()
@@ -139,7 +136,7 @@ class DTLZ3():
 
         pop_size = x.shape[0]
         M = self.obj_num
-        x1 = x[:,0:M-1]**(2*self.delta1)
+        x1 = x[:,0:M-1]**self.delta1
         x2 = x[:,M-1:self.dim]
 
         triu_mat = np.fliplr(np.triu(np.ones([M-1,M-1]))).reshape(1,M-1,M-1).repeat(pop_size,axis=0)
@@ -187,7 +184,6 @@ class DTLZ4():
         self.dim = n_var
         self.obj_num = obj_num
         self.standard_bounds = np.array([ np.zeros(n_var), np.ones(n_var) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
         self.delta1 = delta1
         self.delta2 = delta2
         self.pareto_f = self.cal_pareto_f()
@@ -200,7 +196,7 @@ class DTLZ4():
 
         pop_size = x.shape[0]
         M = self.obj_num
-        x1 = x[:,0:M-1]**(2*self.s)
+        x1 = x[:,0:M-1]**(2*self.delta1)
         x2 = x[:,M-1:self.dim]
 
         triu_mat = np.fliplr(np.triu(np.ones([M-1,M-1]))).reshape(1,M-1,M-1).repeat(pop_size,axis=0)
