@@ -28,7 +28,7 @@ class OPT(Problem):
 def trans_to_tensor(X,Y):
     max_Y = np.max(Y,axis=0).reshape(1,-1)
     min_Y = np.min(Y,axis=0).reshape(1,-1)
-    Y = (Y - min_Y)/(max_Y - min_Y)
+    Y = (Y - min_Y)/(10 - min_Y)
     return torch.tensor(X),torch.tensor(Y), Y
 
 def invTrEMO(test_problem,source_data,init_pop=None):
@@ -65,7 +65,7 @@ def invTrEMO(test_problem,source_data,init_pop=None):
         ww = 1/(w+1e-10)
         ww = ww/np.sum(ww)
         Dataset_XT,Dataset_YT,y_Pop_norm = trans_to_tensor(Pop,y_Pop)
-        Y_tch = Tchebycheff(Dataset_YT.numpy(),w)
+        Y_tch = Tchebycheff(Dataset_YT.numpy(),ww)
         Y_tch_norm = torch.tensor((Y_tch - np.mean(Y_tch))/np.std(Y_tch))
         model = ForwardGP(Dataset_XT,Y_tch_norm)
         model.train()
@@ -89,7 +89,7 @@ def invTrEMO(test_problem,source_data,init_pop=None):
         # Generate offspring
         try:
             InvTGP.train_tgp()
-            mu_inv, std_inv = InvTGP.predict(ww.reshape(1,-1))
+            mu_inv, std_inv = InvTGP.predict(w.reshape(1,-1))
             x_sample = mu_inv + std_inv*np.random.randn(10000,test_problem.dim)
             x_sample = (x_sample >= test_problem.standard_bounds[0:1,:])*x_sample + (x_sample < test_problem.standard_bounds[0:1,:])*test_problem.standard_bounds[0:1,:]
             x_sample = (x_sample <= test_problem.standard_bounds[1:2,:])*x_sample + (x_sample > test_problem.standard_bounds[1:2,:])*test_problem.standard_bounds[1:2,:]
@@ -97,7 +97,7 @@ def invTrEMO(test_problem,source_data,init_pop=None):
             idx_best = np.argmin(f_hat_sample)
             x_new = x_sample[idx_best:idx_best+1]
         except:
-            mu_inv, std_inv = InvTGP.predict_gp(ww.reshape(1,-1))
+            mu_inv, std_inv = InvTGP.predict_gp(w.reshape(1,-1))
             x_sample = mu_inv + std_inv*np.random.randn(10000,test_problem.dim)
             x_sample = (x_sample >= test_problem.standard_bounds[0:1,:])*x_sample + (x_sample < test_problem.standard_bounds[0:1,:])*test_problem.standard_bounds[0:1,:]
             x_sample = (x_sample <= test_problem.standard_bounds[1:2,:])*x_sample + (x_sample > test_problem.standard_bounds[1:2,:])*test_problem.standard_bounds[1:2,:]
