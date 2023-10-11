@@ -32,7 +32,7 @@ res = minimize(obj_problem,
         ('n_gen', 200))
 Pareto_X = res.X
 Pareto_F = res.F
-Scatter().add(Pareto_F).show()  
+Pareto_F = (Pareto_F - np.min(Pareto_F,axis=0))/(np.array([1677.1128329431713, 10.296842388289523, 0.1787491643169744]) - np.min(Pareto_F,axis=0))
 Pareto_W, Pareto_X = Inv_Transform(Pareto_X, Pareto_F)
 source_models = []
 source_models.append([Pareto_X[:,1:],Pareto_W])
