@@ -5,7 +5,6 @@ class Crash_Source_Case1():
         self.dim = 4
         self.obj_num = 3
         self.standard_bounds = np.array([ 0*np.ones(4), 1*np.ones(4) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
     
     def __call__(self, x):
         if x.ndim == 1:
@@ -27,8 +26,7 @@ class Crash_Target_Case1():
         self.dim = 5
         self.obj_num = 3
         self.standard_bounds = np.array([ 0*np.ones(5), 1*np.ones(5) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
-    
+ 
     def __call__(self, x):
         if x.ndim == 1:
             x = np.array([x])
@@ -50,7 +48,6 @@ class Crash_Source_Case2():
         self.dim = 4
         self.obj_num = 3
         self.standard_bounds = np.array([ 0*np.ones(4), 1*np.ones(4) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
     
     def __call__(self, x):
         if x.ndim == 1:
@@ -72,7 +69,6 @@ class Crash_Target_Case2():
         self.dim = 4
         self.obj_num = 3
         self.standard_bounds = np.array([ 0*np.ones(4), 1*np.ones(4) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
     
     def __call__(self, x):
         if x.ndim == 1:
@@ -94,7 +90,6 @@ class Crash_Source_Case3():
         self.dim = 5
         self.obj_num = 3
         self.standard_bounds = np.array([ 0*np.ones(5), 1*np.ones(5) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
     
     def __call__(self, x):
         if x.ndim == 1:
@@ -117,7 +112,6 @@ class Crash_Target_Case3():
         self.dim = 4
         self.obj_num = 3
         self.standard_bounds = np.array([ 0*np.ones(4), 1*np.ones(4) ])
-        self.norm_for_hv = np.array([[0,0],[2,2]])
     
     def __call__(self, x):
         if x.ndim == 1:
