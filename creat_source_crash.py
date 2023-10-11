@@ -1,7 +1,4 @@
 import numpy as np
-import HyperParameterOpt
-from InvTrBO import InvTrBO
-from ParEGO import ParEGO
 import matplotlib.pyplot as plt
 import copy
 from datetime import datetime
